@@ -1,44 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fredrick Onyango | Health Informatics Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fredrick Onyango | Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      line-height: 1.6;
+      color: #333;
+      padding: 0 20px;
+      background-color: #f8f9fa;
+    }
+    h1, h2 {
+      color: #0d6efd;
+    }
+    img.profile {
+      width: 150px;
+      border-radius: 50%;
+      display: block;
+      margin: 20px auto;
+      border: 2px solid #0d6efd;
+    }
+    a {
+      color: #0d6efd;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    ul {
+      list-style-type: square;
+      padding-left: 20px;
+    }
+    .project {
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-  <div class="max-w-3xl mx-auto p-6">
-    <div class="flex items-center space-x-4">
-      <img src="images/profile.jpg" alt="Fredrick Onyango" class="w-24 h-24 rounded-full shadow-md">
-      <div>
-        <h1 class="text-3xl font-bold">Fredrick Onyango</h1>
-        <p class="text-sm text-gray-600">Master’s Student in Health Informatics | IU Indianapolis</p>
-        <p class="text-sm text-gray-600">📧 fredrick.onyango@example.com</p>
-      </div>
-    </div>
+<body>
 
-    <section class="mt-6">
-      <h2 class="text-2xl font-semibold mb-2">About Me</h2>
-      <p>
-        I’m passionate about leveraging data and technology to improve healthcare outcomes.
-        My research focuses on machine learning applications in early detection of gastrointestinal cancers.
-      </p>
-    </section>
+  <h1>Fredrick Onyango</h1>
+  <img class="profile" src="images/profile.jpg" alt="Fredrick Onyango">
+  <p><strong>Master’s Student in Health Informatics</strong><br>
+  Luddy School of Informatics, IU Indianapolis</p>
 
-    <section class="mt-6">
-      <h2 class="text-2xl font-semibold mb-2">Projects</h2>
-      <ul class="space-y-2">
-        <li><strong>🧬 GI Cancer Risk Prediction Model</strong> — Early detection using biomarker data (Python, Scikit-Learn)</li>
-        <li><strong>📱 SnapStream App</strong> — Social media app merging TikTok, Snapchat & YouTube (React Native)</li>
-        <li><strong>🏥 EHR Implementation Project</strong> — Hospital IT project with Wrike and Gantt scheduling</li>
-        <li><strong>🚑 Disaster Resource Allocation Dashboard</strong> — Power BI dashboard for emergency response</li>
-      </ul>
-    </section>
+  <h2>About Me</h2>
+  <p>I’m passionate about data science, health informatics, and leveraging technology to improve healthcare outcomes. My research focuses on machine learning applications for early detection of gastrointestinal cancers.</p>
 
-    <section class="mt-6">
-      <h2 class="text-2xl font-semibold mb-2">Resume</h2>
-      <a href="resume.pdf" class="text-blue-600 underline">📄 Download My Resume</a>
-    </section>
+  <h2>Skills</h2>
+  <ul>
+    <li>Python, R, SQL, Power BI, Tableau</li>
+    <li>Health Informatics: EHRs, FHIR, DHIS2</li>
+    <li>Machine Learning: Logistic Regression, SVM, Clustering, Naïve Bayes</li>
+    <li>React Native & Mobile App Development</li>
+    <li>Project Management: Wrike, Gantt charts, Agile</li>
+  </ul>
+
+  <h2>Projects</h2>
+  <div class="project">
+    <strong>🧬 GI Cancer Risk Prediction Model</strong> — Early detection of gastrointestinal cancers using biomarker data. <br>
+    <a href="https://github.com/fredrickonyango/gi-cancer-ml" target="_blank">View Project</a>
   </div>
+  <div class="project">
+    <strong>📱 SnapStream App</strong> — Social media app blending TikTok, Snapchat, and YouTube features. <br>
+    <a href="https://github.com/fredrickonyango/snapstream-app" target="_blank">View Project</a>
+  </div>
+  <div class="project">
+    <strong>🏥 EHR Implementation Project</strong> — Hospital IT implementation plan with Wrike and Gantt charts. <br>
+    <a href="https://github.com/fredrickonyango/ehr-project" target="_blank">View Project</a>
+  </div>
+  <div class="project">
+    <strong>🚑 Disaster Resource Allocation Dashboard</strong> — Real-time decision support dashboard for emergency teams. <br>
+    <a href="https://github.com/fredrickonyango/disaster-dashboard" target="_blank">View Project</a>
+  </div>
+
+  <h2>Resume / CV</h2>
+  <p><a href="resume.pdf" target="_blank">📄 Download Resume</a></p>
+
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:fredrick.onyango@example.com">fredrick.onyango@example.com</a></p>
+  <p>LinkedIn: <a href="https://linkedin.com/in/fredrickonyango" target="_blank">linkedin.com/in/fredrickonyango</a></p>
+
 </body>
 </html>
