@@ -50,15 +50,33 @@
     h2 { color: #ffcc00; margin: 25px 0 15px; }
     .bio p { margin: 8px 0; text-align: center; }
 
-    /* Skills badges */
-    .skills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; justify-content: center; }
-    .skills span {
-      background-color: #ffcc00;
-      color: #2c2c3e;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-weight: bold;
-    }
+   /* Skills badges - enhanced version */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;               /* Slightly more spacing */
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.skills span {
+  background: linear-gradient(135deg, #FFD700, #FFC107); /* Gold gradient */
+  color: #1e1e2f;         /* Dark text for contrast */
+  padding: 8px 16px;       /* Bigger padding for better look */
+  border-radius: 25px;     /* Extra rounded for pill shape */
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Adds depth */
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+/* Hover effect for interactivity */
+.skills span:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #FFC107, #FFD700); /* Slight gradient shift */
+}
+
 
     /* Project cards */
     .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
