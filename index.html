@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fredrick Onyango | Portfolio</title>
+  <!-- Font Awesome CDN for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* Global */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Times New Roman", Times, serif;
       font-weight: bold;
-      background: linear-gradient(135deg, #4b2e83, #1e1e2f); /* Purple gradient */
+      background: linear-gradient(135deg, #4b2e83, #1e1e2f);
       color: #f0f0f5;
       min-height: 100vh;
     }
-
     a { color: #ffcc00; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
@@ -69,8 +70,22 @@
     .project-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
     .project-card a { display: inline-block; margin-top: 10px; }
 
-    /* Resume and contact */
-    .resume a, .contact a { font-weight: bold; display: block; margin: 5px 0; text-align: center; }
+    /* Resume */
+    .resume a { font-weight: bold; display: block; margin: 10px 0; text-align: center; }
+
+    /* Social icons */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .social-icons a {
+      color: #ffcc00;
+      font-size: 1.8em;
+      transition: transform 0.3s;
+    }
+    .social-icons a:hover { transform: scale(1.2); }
 
     /* QR code */
     .qr-code { margin-top: 20px; text-align: center; }
@@ -83,12 +98,12 @@
       .sidebar { border-right: none; border-bottom: 1px solid #555; }
       .main { border-left: none; padding: 20px; }
     }
-
     @media (max-width: 500px) {
       h1 { font-size: 1.8em; }
       h2 { font-size: 1.2em; }
       .skills span { font-size: 0.9em; padding: 5px 10px; }
       .project-card { padding: 15px; }
+      .social-icons a { font-size: 1.5em; }
     }
   </style>
 </head>
@@ -103,13 +118,21 @@
         <p>👀 Data Analytics & Machine Learning</p>
         <p>🌱 Master’s in Health Informatics</p>
         <p>💞️ Collaborating on data projects</p>
-        <p>📫 <a href="mailto:freddeonyango@gmail.com">freddeonyango@gmail.com</a></p>
         <p>😄 Pronouns: he/him</p>
         <p>⚡ Fun fact: I love computers</p>
       </div>
+
+      <!-- Social Icons -->
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+
+      <!-- Resume -->
       <a href="resume.pdf" target="_blank">📄 Resume</a>
-      <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank">LinkedIn</a>
-      <a href="mailto:freddeonyango@gmail.com">Email</a>
 
       <!-- QR Code -->
       <div class="qr-code">
