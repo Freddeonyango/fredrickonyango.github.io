@@ -21,7 +21,7 @@
     /* Layout */
     .container { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
     .sidebar {
-      background-color: rgba(44,44,62,0.9); /* Semi-transparent sidebar */
+      background-color: rgba(44,44,62,0.9);
       padding: 20px;
       flex: 1 1 300px;
       display: flex;
@@ -32,7 +32,7 @@
     .main {
       flex: 2 1 600px;
       padding: 30px;
-      background-color: rgba(44,44,62,0.9); /* Semi-transparent main content */
+      background-color: rgba(44,44,62,0.9);
       border-left: 1px solid #555;
     }
 
@@ -72,6 +72,11 @@
     /* Resume and contact */
     .resume a, .contact a { font-weight: bold; display: block; margin: 5px 0; text-align: center; }
 
+    /* QR code */
+    .qr-code { margin-top: 20px; text-align: center; }
+    .qr-code p { margin-bottom: 10px; color: #ffcc00; font-weight: bold; }
+    .qr-code img { border: 2px solid #ffcc00; border-radius: 10px; }
+
     /* Responsive adjustments */
     @media (max-width: 900px) {
       .container { flex-direction: column; }
@@ -105,6 +110,12 @@
       <a href="resume.pdf" target="_blank">📄 Resume</a>
       <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank">LinkedIn</a>
       <a href="mailto:freddeonyango@gmail.com">Email</a>
+
+      <!-- QR Code -->
+      <div class="qr-code">
+        <p>Scan to visit my portfolio:</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://freddeonyango.github.io/fredrickonyango.github.io/" alt="QR Code to portfolio">
+      </div>
     </div>
 
     <!-- Main content -->
