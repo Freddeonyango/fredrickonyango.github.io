@@ -27,42 +27,5 @@
 
   <p><a href="index.html">← Back to Home</a></p>
 
-  <script>
-    const btn = document.getElementById("search-btn");
-    const input = document.getElementById("disease-input");
-    const results = document.getElementById("search-results");
-
-    btn.addEventListener("click", async () => {
-      const term = input.value.trim();
-      if (!term) return alert("Please enter a disease name.");
-
-      results.innerHTML = "Searching...";
-
-      try {
-        // Replace this with your deployed proxy URL
-        const proxyURL = `https://your-proxy-url.com/search/${encodeURIComponent(term)}`;
-        const res = await fetch(proxyURL);
-        const data = await res.json();
-
-        if (!data.items || data.items.length === 0) {
-          results.innerHTML = "No diseases found.";
-          return;
-        }
-
-        results.innerHTML = data.items.map(item => `
-          <div class="condition-card">
-            <strong>${item.fsn}</strong><br>
-            SNOMED: ${item.conceptId}<br>
-            Parents: ${item.parents?.join(", ") || 'N/A'}<br>
-            Children: ${item.children?.join(", ") || 'N/A'}<br>
-            Attributes: ${item.attributes ? JSON.stringify(item.attributes) : 'N/A'}
-          </div>
-        `).join('');
-      } catch (err) {
-        results.innerHTML = "Error fetching data from proxy.";
-        console.error(err);
-      }
-    });
-  </script>
 </body>
 </html>
