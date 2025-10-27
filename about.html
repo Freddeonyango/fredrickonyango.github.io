@@ -4,107 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Fredrick Onyango</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: "Times New Roman", Times, serif;
-      background: linear-gradient(135deg, #4b2e83, #1e1e2f);
-      color: #f0f0f5;
-      min-height: 100vh;
-      padding: 40px;
-    }
-    a { color: #ffcc00; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    h1, h2 { color: #ffcc00; margin-top: 20px; }
-    .condition-card {
-      background: rgba(58,58,80,0.95);
-      border: 1px solid #555;
-      border-radius: 10px;
-      padding: 10px;
-      margin: 10px 0;
-    }
-    input, button {
-      padding: 8px;
-      margin: 5px 0;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      cursor: pointer;
-      background: #ffcc00;
-      color: #1e1e2f;
-      font-weight: bold;
-    }
-    button:hover { background: #ffd633; }
+    body { font-family: "Times New Roman", Times, serif; background: linear-gradient(135deg,#4b2e83,#1e1e2f); color:#f0f0f5; padding:30px;}
+    h1,h2{color:#ffcc00;}
+    input,button{padding:10px;margin:5px 0;width:100%;max-width:400px;border-radius:5px;border:none;}
+    button{background:#ffcc00;color:#1e1e2f;font-weight:bold;cursor:pointer;}
+    button:hover{background:#e6b800;}
+    .condition-card{background:rgba(44,44,62,0.9);padding:15px;margin:10px 0;border-radius:10px;border:1px solid #555;}
+    a{color:#ffcc00;text-decoration:none;}
+    a:hover{text-decoration:underline;}
   </style>
 </head>
 <body>
   <h1>About Us</h1>
-  <p>Welcome! I’m Fredrick Onyango. Here’s the story behind my startup and what drives us.</p>
-  <p>Our team collaborates on data analytics, machine learning, and health informatics projects.</p>
+  <p>Founded by Fredrick Onyango, our team brings expertise in machine learning, health informatics, and software development. We collaborate on projects that solve real-world problems in healthcare, social tech, and data analytics.</p>
 
-  <h2>SNOMED Disease Lookup</h2>
-  <p>Type a disease name to fetch its SNOMED code, ICD code, and hierarchy:</p>
-  <input type="text" id="disease-input" placeholder="Enter disease name...">
+  <h2>Search for a Disease</h2>
+  <input type="text" id="disease-input" placeholder="Enter disease name">
   <button id="search-btn">Search</button>
-  <div id="search-results">Results will appear here.</div>
+
+  <div id="search-results"></div>
 
   <p><a href="index.html">← Back to Home</a></p>
 
   <script>
-    // Replace with your Oracle FHIR server
-    const fhirBase = "http://159.203.105.138:8080/fhir";
-    const input = document.getElementById("disease-input");
     const btn = document.getElementById("search-btn");
+    const input = document.getElementById("disease-input");
     const results = document.getElementById("search-results");
 
-    btn.addEventListener("click", () => {
-      const query = input.value.trim();
-      if (!query) return alert("Please enter a disease name.");
-      searchCondition(query);
-    });
+    btn.addEventListener("click", async () => {
+      const term = input.value.trim();
+      if (!term) return alert("Please enter a disease name.");
 
-    async function searchCondition(name) {
       results.innerHTML = "Searching...";
-      try {
-        const res = await fetch(`${fhirBase}/Condition?code:text=${encodeURIComponent(name)}&_count=10`);
-        const data = await res.json();
-        results.innerHTML = "";
 
-        if (!data.entry || data.entry.length === 0) {
-          results.innerHTML = "No conditions found.";
+      try {
+        // Replace this with your deployed proxy URL
+        const proxyURL = `https://your-proxy-url.com/search/${encodeURIComponent(term)}`;
+        const res = await fetch(proxyURL);
+        const data = await res.json();
+
+        if (!data.items || data.items.length === 0) {
+          results.innerHTML = "No diseases found.";
           return;
         }
 
-        data.entry.forEach(e => {
-          const cond = e.resource;
-
-          // SNOMED and ICD
-          const snomed = cond.code?.coding?.find(c => c.system?.includes("snomed"))?.code || "-";
-          const icd = cond.code?.coding?.find(c => c.system?.includes("icd"))?.code || "-";
-          const displayName = cond.code?.text || "-";
-
-          // Parent and children (assuming FHIR extensions)
-          const parents = cond.extension?.filter(ext => ext.url?.toLowerCase().includes("parent"))
-                          .map(p => p.valueReference?.display || p.valueReference?.reference) || [];
-          const children = cond.extension?.filter(ext => ext.url?.toLowerCase().includes("child"))
-                          .map(c => c.valueReference?.display || c.valueReference?.reference) || [];
-
-          results.innerHTML += `
-            <div class="condition-card">
-              <strong>${displayName}</strong><br>
-              SNOMED: ${snomed}<br>
-              ICD: ${icd}<br>
-              Parents: ${parents.join(", ") || "None"}<br>
-              Children: ${children.join(", ") || "None"}
-            </div>
-          `;
-        });
+        results.innerHTML = data.items.map(item => `
+          <div class="condition-card">
+            <strong>${item.fsn}</strong><br>
+            SNOMED: ${item.conceptId}<br>
+            Parents: ${item.parents?.join(", ") || 'N/A'}<br>
+            Children: ${item.children?.join(", ") || 'N/A'}<br>
+            Attributes: ${item.attributes ? JSON.stringify(item.attributes) : 'N/A'}
+          </div>
+        `).join('');
       } catch (err) {
-        results.innerHTML = "Error fetching data from FHIR server.";
+        results.innerHTML = "Error fetching data from proxy.";
         console.error(err);
       }
-    }
+    });
   </script>
 </body>
 </html>
