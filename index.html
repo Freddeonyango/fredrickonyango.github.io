@@ -50,7 +50,7 @@
     h2 { color: #ffcc00; margin: 25px 0 15px; }
     .bio p { margin: 8px 0; text-align: center; }
 
-    /* Skills badges - enhanced version */
+    /* Skills badges */
     .skills {
       display: flex;
       flex-wrap: wrap;
@@ -93,49 +93,6 @@
     .qr-code { margin-top: 20px; text-align: center; }
     .qr-code p { margin-bottom: 10px; color: #ffcc00; font-weight: bold; }
     .qr-code img { border: 2px solid #ffcc00; border-radius: 10px; }
-
-    /* Slideshow */
-    .about-slideshow { max-width: 100%; margin: 40px 0; text-align: center; }
-    .slideshow-container { position: relative; max-width: 100%; margin: auto; }
-    .slide { display: none; position: relative; }
-    .slide img { width: 100%; border-radius: 10px; }
-    .caption {
-      position: absolute;
-      bottom: 10px;
-      left: 20px;
-      color: #ffcc00;
-      background: rgba(0,0,0,0.5);
-      padding: 8px 12px;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      padding: 12px;
-      color: #ffcc00;
-      font-weight: bold;
-      font-size: 20px;
-      border-radius: 50%;
-      background-color: rgba(0,0,0,0.5);
-      user-select: none;
-      transform: translateY(-50%);
-    }
-    .prev { left: 10px; }
-    .next { right: 10px; }
-    .dot {
-      height: 12px;
-      width: 12px;
-      margin: 0 4px;
-      display: inline-block;
-      background-color: #bbb;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .active, .dot:hover { background-color: #ffcc00; }
-    .fade { animation: fade 1s; }
-    @keyframes fade { from {opacity: 0.4;} to {opacity: 1;} }
 
     /* Footer social icons */
     footer {
@@ -224,34 +181,6 @@
           <a href="https://github.com/fredrickonyango/disaster-dashboard" target="_blank">View Project</a>
         </div>
       </div>
-
-      <!-- About Me Slideshow -->
-      <div class="about-slideshow">
-        <h2>About Me</h2>
-        <div class="slideshow-container">
-          <div class="slide fade">
-            <img src="images/photo1.jpg" alt="Fredrick Onyango 1">
-            <div class="caption">Working on Data Analytics Projects</div>
-          </div>
-          <div class="slide fade">
-            <img src="images/photo2.jpg" alt="Fredrick Onyango 2">
-            <div class="caption">At Indiana University Indianapolis</div>
-          </div>
-          <div class="slide fade">
-            <img src="images/photo3.jpg" alt="Fredrick Onyango 3">
-            <div class="caption">Presenting a Project</div>
-          </div>
-          <!-- Next/Prev buttons -->
-          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-          <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
-        <!-- Dots -->
-        <div style="text-align:center; margin-top: 10px;">
-          <span class="dot" onclick="currentSlide(1)"></span> 
-          <span class="dot" onclick="currentSlide(2)"></span> 
-          <span class="dot" onclick="currentSlide(3)"></span> 
-        </div>
-      </div>
     </div> <!-- End of main -->
   </div> <!-- End of container -->
 
@@ -263,25 +192,5 @@
     <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
     <a href="https://www.youtube.com/@Mrdotexcel" target="_blank"><i class="fab fa-youtube"></i></a>
   </footer>
-
-  <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
-
-    function plusSlides(n) { showSlides(slideIndex += n); }
-    function currentSlide(n) { showSlides(slideIndex = n); }
-
-    function showSlides(n) {
-      let i;
-      let slides = document.getElementsByClassName("slide");
-      let dots = document.getElementsByClassName("dot");
-      if (n > slides.length) { slideIndex = 1; }    
-      if (n < 1) { slideIndex = slides.length; }
-      for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-      for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
-      slides[slideIndex-1].style.display = "block";  
-      dots[slideIndex-1].className += " active";
-    }
-  </script>
 </body>
 </html>
