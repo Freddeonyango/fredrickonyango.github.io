@@ -15,12 +15,14 @@
       background: linear-gradient(135deg, #4b2e83, #1e1e2f);
       color: #f0f0f5;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     a { color: #ffcc00; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     /* Layout */
-    .container { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+    .container { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; flex: 1; }
     .sidebar {
       background-color: rgba(44,44,62,0.9);
       padding: 20px;
@@ -73,24 +75,25 @@
     /* Resume */
     .resume a { font-weight: bold; display: block; margin: 10px 0; text-align: center; }
 
-    /* Social icons */
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    .social-icons a {
-      color: #ffcc00;
-      font-size: 1.8em;
-      transition: transform 0.3s;
-    }
-    .social-icons a:hover { transform: scale(1.2); }
-
     /* QR code */
     .qr-code { margin-top: 20px; text-align: center; }
     .qr-code p { margin-bottom: 10px; color: #ffcc00; font-weight: bold; }
     .qr-code img { border: 2px solid #ffcc00; border-radius: 10px; }
+
+    /* Footer social icons */
+    footer {
+      background-color: rgba(44,44,62,0.95);
+      padding: 15px 0;
+      text-align: center;
+      border-top: 1px solid #555;
+    }
+    footer a {
+      color: #ffcc00;
+      font-size: 2em;
+      margin: 0 15px;
+      transition: transform 0.3s;
+    }
+    footer a:hover { transform: scale(1.2); }
 
     /* Responsive adjustments */
     @media (max-width: 900px) {
@@ -103,7 +106,7 @@
       h2 { font-size: 1.2em; }
       .skills span { font-size: 0.9em; padding: 5px 10px; }
       .project-card { padding: 15px; }
-      .social-icons a { font-size: 1.5em; }
+      footer a { font-size: 1.5em; margin: 0 10px; }
     }
   </style>
 </head>
@@ -120,15 +123,6 @@
         <p>💞️ Collaborating on data projects</p>
         <p>😄 Pronouns: he/him</p>
         <p>⚡ Fun fact: I love computers</p>
-      </div>
-
-      <!-- Social Icons -->
-      <div class="social-icons">
-        <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.facebook.com/frederick.onyango.31" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://x.com/@sonofmaryatieno" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
-        <a href="https://www.youtube.com/@Mrdotexcel" target="_blank"><i class="fab fa-youtube"></i></a>
       </div>
 
       <!-- Resume -->
@@ -175,5 +169,14 @@
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer>
+    <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.facebook.com/frederick.onyango.31" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="https://x.com/@sonofmaryatieno" target="_blank"><i class="fab fa-x-twitter"></i></a>
+    <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.youtube.com/@Mrdotexcel" target="_blank"><i class="fab fa-youtube"></i></a>
+  </footer>
 </body>
 </html>
