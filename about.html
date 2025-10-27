@@ -52,7 +52,7 @@
   <p><a href="index.html">← Back to Home</a></p>
 
   <script>
-    const fhirBase = "https://r4.smarthealthit.org"; // SMART FHIR sandbox
+    const fhirBase = "http://159.203.105.138:8080/fhir"; // Your FHIR server
     const input = document.getElementById("disease-input");
     const btn = document.getElementById("search-btn");
     const results = document.getElementById("search-results");
@@ -66,7 +66,7 @@
     async function searchSNOMED(name) {
       results.innerHTML = "Searching...";
       try {
-        // Search for SNOMED via Condition
+        // Search for SNOMED via Condition resource
         const res = await fetch(`${fhirBase}/Condition?code:text=${encodeURIComponent(name)}&_count=10`);
         const data = await res.json();
         results.innerHTML = "";
@@ -78,8 +78,8 @@
 
         data.entry.forEach(e => {
           const cond = e.resource;
-          // Find SNOMED coding
           const snomed = cond.code?.coding?.find(c => c.system?.includes("snomed"))?.code || "-";
+          const icd = cond.code?.coding?.find(c => c.system?.includes("icd"))?.code || "-";
           const displayName = cond.code?.text || "-";
           const category = cond.category?.map(c => c.coding?.map(cd => cd.code).join(", ")).join(", ") || "-";
           const clinicalStatus = cond.clinicalStatus?.coding?.map(c => c.code).join(", ") || "-";
@@ -88,13 +88,14 @@
             <div class="condition-card">
               <strong>${displayName}</strong><br>
               SNOMED Code: ${snomed}<br>
+              ICD Code: ${icd}<br>
               Category: ${category}<br>
               Clinical Status: ${clinicalStatus}
             </div>
           `;
         });
       } catch (err) {
-        results.innerHTML = "Error fetching SNOMED data from FHIR.";
+        results.innerHTML = "Error fetching data from FHIR server.";
         console.error(err);
       }
     }
