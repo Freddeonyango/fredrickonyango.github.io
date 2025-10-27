@@ -15,7 +15,7 @@
     }
     a { color: #ffcc00; text-decoration: none; }
     a:hover { text-decoration: underline; }
-    h1, h2 { color: #ffcc00; }
+    h1, h2 { color: #ffcc00; margin-top: 20px; }
     .condition-card {
       background: rgba(58,58,80,0.95);
       border: 1px solid #555;
@@ -67,7 +67,8 @@
     async function searchCondition(name) {
       results.innerHTML = "Searching...";
       try {
-        const res = await fetch(`${fhirBase}/Condition?code:text=${encodeURIComponent(name)}&_count=10`);
+        // Use name search instead of code:text for better reliability
+        const res = await fetch(`${fhirBase}/Condition?name=${encodeURIComponent(name)}&_count=10`);
         const data = await res.json();
         results.innerHTML = "";
 
@@ -78,16 +79,16 @@
 
         data.entry.forEach(e => {
           const cond = e.resource;
-          const snomed = cond.code.coding.find(c => c.system.includes("snomed"))?.code || "-";
-          const icd = cond.code.coding.find(c => c.system.includes("icd"))?.code || "-";
-          const parents = cond.extension?.filter(ext => ext.url.includes("parent")).map(p => p.valueReference.reference) || [];
-          const children = cond.extension?.filter(ext => ext.url.includes("child")).map(c => c.valueReference.reference) || [];
-          const category = cond.category?.map(c => c.coding.map(cd => cd.code).join(", ")).join(", ") || "-";
+          const snomed = cond.code?.coding?.find(c => c.system?.includes("snomed"))?.code || "-";
+          const icd = cond.code?.coding?.find(c => c.system?.includes("icd"))?.code || "-";
+          const parents = cond.extension?.filter(ext => ext.url?.includes("parent"))?.map(p => p.valueReference?.reference) || [];
+          const children = cond.extension?.filter(ext => ext.url?.includes("child"))?.map(c => c.valueReference?.reference) || [];
+          const category = cond.category?.map(c => c.coding?.map(cd => cd.code).join(", ")).join(", ") || "-";
           const clinicalStatus = cond.clinicalStatus?.coding?.map(c => c.code).join(", ") || "-";
 
           const html = `
             <div class="condition-card">
-              <strong>${cond.code.text || "No name"}</strong><br>
+              <strong>${cond.code?.text || "No name"}</strong><br>
               SNOMED: ${snomed} | ICD: ${icd}<br>
               Parents: ${parents.join(", ") || "None"}<br>
               Children: ${children.join(", ") || "None"}<br>
@@ -98,7 +99,7 @@
           results.innerHTML += html;
         });
       } catch(err) {
-        results.innerHTML = "Error fetching data from FHIR.";
+        results.innerHTML = "Error fetching data from FHIR. Try again or check your internet connection.";
         console.error(err);
       }
     }
