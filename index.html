@@ -196,8 +196,8 @@
           <a href="https://github.com/fredrickonyango/disaster-dashboard" target="_blank">View Project</a>
         </div>
 
-       <!-- About Me Slideshow -->
-<div class="about-slideshow">
+      <!-- About Me Slideshow -->
+<section class="about-slideshow">
   <h2>About Me</h2>
   <div class="slideshow-container">
 
@@ -222,82 +222,46 @@
   </div>
 
   <!-- Dots -->
-  <div style="text-align:center; margin-top: 10px;">
+  <div class="dots-container">
     <span class="dot" onclick="currentSlide(1)"></span> 
     <span class="dot" onclick="currentSlide(2)"></span> 
     <span class="dot" onclick="currentSlide(3)"></span> 
   </div>
-</div>
+</section>
 
 <style>
-.about-slideshow { max-width: 800px; margin: 40px auto; }
-.slideshow-container { position: relative; }
+.about-slideshow {
+  max-width: 900px;
+  margin: 60px auto; /* More spacing from other sections */
+  padding: 20px;
+  text-align: center;
+}
+
+.slideshow-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
 .slide { display: none; position: relative; }
-.slide img { width: 100%; border-radius: 10px; }
+.slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .caption {
   position: absolute;
-  bottom: 10px;
-  left: 20px;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
   color: #ffcc00;
-  background: rgba(0,0,0,0.5);
-  padding: 8px 12px;
-  border-radius: 5px;
-  font-weight: bold;
-}
+  background: rgba(0,0,0,0.6);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-
 
-/* Next/prev buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  padding: 12px;
-  color: #ffcc00;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 50%;
-  background-color: rgba(0,0,0,0.5);
-  user-select: none;
-  transform: translateY(-50%);
-}
-.prev { left: 10px; }
-.next { right: 10px; }
-
-/* Dots */
-.dot {
-  height: 12px;
-  width: 12px;
-  margin: 0 4px;
-  display: inline-block;
-  background-color: #bbb;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.active, .dot:hover { background-color: #ffcc00; }
-
-/* Fade animation */
-.fade { animation: fade 1s; }
-@keyframes fade { from {opacity: 0.4;} to {opacity: 1;} }
-</style>
-
-<script>
-let slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) { showSlides(slideIndex += n); }
-function currentSlide(n) { showSlides(slideIndex = n); }
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("slide");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) { slideIndex = 1; }    
-  if (n < 1) { slideIndex = slides.length; }
-  for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-  for (i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-</script> 
   <!-- Footer -->
   <footer>
     <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
