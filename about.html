@@ -44,7 +44,7 @@
   <p>Our team collaborates on data analytics, machine learning, and health informatics projects.</p>
 
   <h2>SNOMED Disease Lookup</h2>
-  <p>Type a disease name and fetch its SNOMED code:</p>
+  <p>Type a disease name to fetch its SNOMED code, ICD code, and hierarchy:</p>
   <input type="text" id="disease-input" placeholder="Enter disease name...">
   <button id="search-btn">Search</button>
   <div id="search-results">Results will appear here.</div>
@@ -52,7 +52,8 @@
   <p><a href="index.html">← Back to Home</a></p>
 
   <script>
-    const fhirBase = "http://159.203.105.138:8080/fhir"; // Your FHIR server
+    // Replace with your Oracle FHIR server
+    const fhirBase = "http://159.203.105.138:8080/fhir";
     const input = document.getElementById("disease-input");
     const btn = document.getElementById("search-btn");
     const results = document.getElementById("search-results");
@@ -60,37 +61,42 @@
     btn.addEventListener("click", () => {
       const query = input.value.trim();
       if (!query) return alert("Please enter a disease name.");
-      searchSNOMED(query);
+      searchCondition(query);
     });
 
-    async function searchSNOMED(name) {
+    async function searchCondition(name) {
       results.innerHTML = "Searching...";
       try {
-        // Search for SNOMED via Condition resource
         const res = await fetch(`${fhirBase}/Condition?code:text=${encodeURIComponent(name)}&_count=10`);
         const data = await res.json();
         results.innerHTML = "";
 
         if (!data.entry || data.entry.length === 0) {
-          results.innerHTML = "No SNOMED conditions found.";
+          results.innerHTML = "No conditions found.";
           return;
         }
 
         data.entry.forEach(e => {
           const cond = e.resource;
+
+          // SNOMED and ICD
           const snomed = cond.code?.coding?.find(c => c.system?.includes("snomed"))?.code || "-";
           const icd = cond.code?.coding?.find(c => c.system?.includes("icd"))?.code || "-";
           const displayName = cond.code?.text || "-";
-          const category = cond.category?.map(c => c.coding?.map(cd => cd.code).join(", ")).join(", ") || "-";
-          const clinicalStatus = cond.clinicalStatus?.coding?.map(c => c.code).join(", ") || "-";
+
+          // Parent and children (assuming FHIR extensions)
+          const parents = cond.extension?.filter(ext => ext.url?.toLowerCase().includes("parent"))
+                          .map(p => p.valueReference?.display || p.valueReference?.reference) || [];
+          const children = cond.extension?.filter(ext => ext.url?.toLowerCase().includes("child"))
+                          .map(c => c.valueReference?.display || c.valueReference?.reference) || [];
 
           results.innerHTML += `
             <div class="condition-card">
               <strong>${displayName}</strong><br>
-              SNOMED Code: ${snomed}<br>
-              ICD Code: ${icd}<br>
-              Category: ${category}<br>
-              Clinical Status: ${clinicalStatus}
+              SNOMED: ${snomed}<br>
+              ICD: ${icd}<br>
+              Parents: ${parents.join(", ") || "None"}<br>
+              Children: ${children.join(", ") || "None"}
             </div>
           `;
         });
