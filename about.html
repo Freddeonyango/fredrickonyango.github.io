@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fredrick Onyango | Projects</title>
-  
-  <!-- FontAwesome for footer icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
     body {
       background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
@@ -33,7 +29,7 @@
       color: #ffcc00;
     }
 
-    /* Search Box */
+    /* 🔍 Search Box */
     #searchBox {
       width: 60%;
       padding: 12px;
@@ -52,7 +48,7 @@
       box-shadow: 0 0 15px #ffcc00;
     }
 
-    /* Project Cards */
+    /* 🧱 Project Cards */
     .projects-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -102,39 +98,112 @@
     .back-home:hover {
       background: #ffc107;
     }
-
-    /* Footer */
-    footer {
-      background: rgba(44,44,62,0.95);
-      padding: 15px 0;
-      text-align: center;
-      border-top: 1px solid #555;
-    }
-    footer a {
-      color: #ffcc00;
-      font-size: 2em;
-      margin: 0 15px;
-      transition: transform 0.3s;
-    }
-    footer a:hover {
-      transform: scale(1.2);
-    }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Fredrick Onyango</h1>
-    <p>Welcome to my portfolio</p>
-  </header>
+<!-- Top-right Hamburger Menu -->
+<div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+  <input type="checkbox" id="menu-toggle" style="display:none;">
+  <label for="menu-toggle" style="font-size: 2em; color: #ffcc00; cursor: pointer;">☰</label>
+  
+  <div id="menu" style="
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: rgba(44,44,62,0.95);
+    border: 1px solid #555;
+    border-radius: 10px;
+    text-align: left;
+    min-width: 180px;
+  ">
+    <a href="index.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Home</a>
+    <a href="about.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">About Us</a>
+    <a href="portfolio.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Portfolio</a>
+    <a href="blog.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Blog & Insights</a>
+    <a href="contact.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Contact</a>
+  </div>
+</div>
 
-  <a href="index.html" class="back-home">⬅ Back to Home</a>
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("menu");
 
-  <h2>Projects</h2>
+  toggle.addEventListener("change", () => {
+    menu.style.display = toggle.checked ? "block" : "none";
+  });
 
-  <!-- Search Bar -->
-  <input type="text" id="searchBox" placeholder="Search projects...">
+  document.addEventListener("click", (e) => {
+    if (!menu.contains(e.target) && !toggle.contains(e.target) && !e.target.matches('label[for="menu-toggle"]')) {
+      menu.style.display = "none";
+      toggle.checked = false;
+    }
+  });
+</script>
 
-  <!-- Projects Section -->
-  <div class="projects
+<!-- Back to Home -->
+<a href="index.html" class="back-home">⬅ Back to Home</a>
+
+<header>
+  <h1>Fredrick Onyango</h1>
+  <p>Welcome to my portfolio</p>
+</header>
+
+<h2>Projects</h2>
+
+<!-- 🔍 Search Bar -->
+<input type="text" id="searchBox" placeholder="Search projects...">
+
+<!-- 💼 Projects Section -->
+<div class="projects-container">
+  <div class="project-card">
+    <h3>GI Cancer Detection (Machine Learning)</h3>
+    <p>Using Python and ML models to predict gastrointestinal cancer risk based on biomarker data.</p>
+    <a href="#">View Project</a>
+  </div>
+
+  <div class="project-card">
+    <h3>Disaster Resource Allocation Dashboard</h3>
+    <p>Interactive Power BI dashboard integrating DHIS2 and Excel to support emergency response teams.</p>
+    <a href="#">View Project</a>
+  </div>
+
+  <div class="project-card">
+    <h3>SnapStream App</h3>
+    <p>A social media app blending features from TikTok, Snapchat, and YouTube with React Native.</p>
+    <a href="#">View Project</a>
+  </div>
+
+  <div class="project-card">
+    <h3>Polis Center Research</h3>
+    <p>Analyzing social determinants of health and urban resilience through spatial data science.</p>
+    <a href="#">View Project</a>
+  </div>
+</div>
+
+<!-- 🧠 Search Script -->
+<script>
+  document.getElementById("searchBox").addEventListener("input", function() {
+    const query = this.value.toLowerCase();
+    const projects = document.querySelectorAll(".project-card");
+
+    projects.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? "block" : "none";
+    });
+  });
+</script>
+
+<!-- Footer -->
+<footer style="background: rgba(44,44,62,0.95); padding:15px 0; text-align:center; border-top:1px solid #555;">
+  <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <a href="https://www.facebook.com/frederick.onyango.31" target="_blank"><i class="fab fa-facebook"></i></a>
+  <a href="https://x.com/@sonofmaryatieno" target="_blank"><i class="fab fa-x"></i></a>
+  <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
+  <a href="https://www.youtube.com/@Mrdotexcel" target="_blank"><i class="fab fa-youtube"></i></a>
+</footer>
+
+</body>
+</html>
