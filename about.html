@@ -3,44 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | Fredrick Onyango</title>
+  <title>Fredrick Onyango | Projects</title>
   <style>
-    body { font-family: "Times New Roman", Times, serif; background: linear-gradient(135deg,#4b2e83,#1e1e2f); color:#f0f0f5; padding:30px;}
-    h1,h2{color:#ffcc00;}
-    input,button{padding:10px;margin:5px 0;width:100%;max-width:400px;border-radius:5px;border:none;}
-    button{background:#ffcc00;color:#1e1e2f;font-weight:bold;cursor:pointer;}
-    button:hover{background:#e6b800;}
-    .condition-card{background:rgba(44,44,62,0.9);padding:15px;margin:10px 0;border-radius:10px;border:1px solid #555;}
-    a{color:#ffcc00;text-decoration:none;}
-    a:hover{text-decoration:underline;}
+    body {
+      background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 0 10px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-top: 40px;
+      color: #ffcc00;
+    }
+
+    /* 🔍 Search Box */
+    #searchBox {
+      width: 60%;
+      padding: 12px;
+      margin: 20px auto;
+      border-radius: 25px;
+      border: none;
+      text-align: center;
+      font-size: 1.1em;
+      display: block;
+      outline: none;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      transition: box-shadow 0.3s ease;
+    }
+
+    #searchBox:focus {
+      box-shadow: 0 0 15px #ffcc00;
+    }
+
+    /* 🧱 Project Cards */
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      width: 90%;
+      margin: 0 auto 60px;
+    }
+
+    .project-card {
+      background-color: rgba(58,58,80,0.95);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid #555;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+      border-color: #ffcc00;
+    }
+
+    a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
+
 <body>
-  <h1>About Us</h1>
-  <p>Founded by Fredrick Onyango, our team brings expertise in machine learning, health informatics, and software development. We collaborate on projects that solve real-world problems in healthcare, social tech, and data analytics.</p>
+  <header>
+    <h1>Fredrick Onyango</h1>
+    <p>Welcome to my portfolio</p>
+  </header>
 
-  <input type="text" id="searchBox" placeholder="Search projects or skills...">
-<div id="results"></div>
+  <h2>Projects</h2>
 
-<script>
-const data = [
-  { name: "GI Cancer Risk Prediction Model", link: "#", tags: "machine learning cancer biomarker" },
-  { name: "SnapStream App", link: "#", tags: "react native social media" },
-  { name: "EHR Implementation", link: "#", tags: "project management healthcare" },
-  { name: "Disaster Dashboard", link: "#", tags: "power bi dhis2 emergency" }
-];
+  <!-- 🔍 Search Bar -->
+  <input type="text" id="searchBox" placeholder="Search projects...">
 
-document.getElementById("searchBox").addEventListener("input", function() {
-  const query = this.value.toLowerCase();
-  const results = data.filter(item =>
-    item.name.toLowerCase().includes(query) ||
-    item.tags.toLowerCase().includes(query)
-  );
+  <!-- 💼 Projects Section -->
+  <div class="projects-container">
+    <div class="project-card">
+      <h3>GI Cancer Detection (Machine Learning)</h3>
+      <p>Using Python and ML models to predict gastrointestinal cancer risk based on biomarker data.</p>
+      <a href="#">View Project</a>
+    </div>
 
-  document.getElementById("results").innerHTML = results.length
-    ? results.map(r => `<p><a href="${r.link}">${r.name}</a></p>`).join("")
-    : "<p>No matches found.</p>";
-});
-</script>
+    <div class="project-card">
+      <h3>Disaster Resource Allocation Dashboard</h3>
+      <p>Interactive Power BI dashboard integrating DHIS2 and Excel to support emergency response teams.</p>
+      <a href="#">View Project</a>
+    </div>
+
+    <div class="project-card">
+      <h3>SnapStream App</h3>
+      <p>A social media app blending features from TikTok, Snapchat, and YouTube with React Native.</p>
+      <a href="#">View Project</a>
+    </div>
+
+    <div class="project-card">
+      <h3>Polis Center Research</h3>
+      <p>Analyzing social determinants of health and urban resilience through spatial data science.</p>
+      <a href="#">View Project</a>
+    </div>
+  </div>
+
+  <!-- 🧠 Search Script -->
+  <script>
+    document.getElementById("searchBox").addEventListener("input", function() {
+      const query = this.value.toLowerCase();
+      const projects = document.querySelectorAll(".project-card");
+
+      projects.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(query) ? "block" : "none";
+      });
+    });
+  </script>
+
 </body>
 </html>
