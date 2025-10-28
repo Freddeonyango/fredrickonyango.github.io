@@ -1,43 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fredrick Onyango | Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* Global */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "Times New Roman", Times, serif;
-      font-weight: bold;
-      background: linear-gradient(135deg, #4b2e83, #1e1e2f);
-      color: #f0f0f5;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a { color: #ffcc00; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fredrick Onyango | Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* Global */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  background: linear-gradient(135deg, #4b2e83, #1e1e2f);
+  color: #f0f0f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+a { color: #ffcc00; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-    /* Layout */
-    .container { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; flex: 1; }
-    .sidebar {
-      background-color: rgba(44,44,62,0.9);
-      padding: 20px;
-      flex: 1 1 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-right: 1px solid #555;
-    }
-    .main {
-      flex: 2 1 600px;
-      padding: 30px;
-      background-color: rgba(44,44,62,0.9);
-      border-left: 1px solid #555;
-    }
-    .main section { margin-bottom: 40px; }
+/* Layout */
+.container { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; flex: 1; }
+.sidebar {
+  background-color: rgba(44,44,62,0.9);
+  padding: 20px;
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #555;
+}
+.main {
+  flex: 2 1 600px;
+  padding: 30px;
+  background-color: rgba(44,44,62,0.9);
+  border-left: 1px solid #555;
+}
+.main section { margin-bottom: 40px; }
+
+/* Profile */
+img.profile { width: 150px; border-radius: 50%; border: 3px solid #ffcc00; margin-bottom: 20px; }
+h1 { color: #ffcc00; margin-bottom: 10px; text-align: center; }
+h2 { color: #ffcc00; margin: 25px 0 15px; }
+.bio p { margin: 8px 0; text-align: center; }
+
+/* Skills badges */
+.skills { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; justify-content: center; }
+.skills span {
+  background: linear-gradient(135deg, #FFD700, #FFC107);
+  color: #1e1e2f;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+.skills span:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #FFC107, #FFD700);
+}
+
+/* Project cards */
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
+.project-card { background-color: rgba(58,58,80,0.95); padding: 20px; border-radius: 10px; border: 1px solid #555; transition: transform 0.3s, box-shadow 0.3s; }
+.project-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+.project-card a { display: inline-block; margin-top: 10px; }
+
+/* Resume */
+.resume a { font-weight: bold; display: block; margin: 10px 0; text-align: center; }
+
+/* QR code */
+.qr-code { margin-top: 20px; text-align: center; }
+.qr-code p { margin-bottom: 10px; color: #ffcc00; font-weight: bold; }
+.qr-code img { border: 2px solid #ffcc00; border-radius: 10px; }
+
+/* Footer social icons */
+footer { background-color: rgba(44,44,62,0.95); padding: 15px 0; text-align: center; border-top: 1px solid #555; }
+footer a { color: #ffcc00; font-size: 2em; margin: 0 15px; transition: transform 0.3s; }
+footer a:hover { transform: scale(1.2); }
+
+/* Contact form */
+form input, form textarea { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: none; }
+form button { padding:10px 20px; background:#ffcc00; color:#1e1e2f; font-weight:bold; border:none; border-radius:5px; cursor:pointer; }
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .container { flex-direction: column; }
+  .sidebar { border-right: none; border-bottom: 1px solid #555; }
+  .main { border-left: none; padding: 20px; }
+}
+@media (max-width: 500px) {
+  h1 { font-size: 1.8em; }
+  h2 { font-size: 1.2em; }
+  .skills span { font-size: 0.9em; padding: 5px 10px; }
+  .project-card { padding: 15px; }
+  footer a { font-size: 1.5em; margin: 0 10px; }
+}
+</style>
+</head>
+<body>
+
 <!-- Navigation Dropdown -->
 <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
   <label for="page-select" style="color: #ffcc00; font-weight: bold; cursor: pointer;">
@@ -53,202 +118,86 @@
   </select>
 </div>
 
-<script>
-  const pageSelect = document.getElementById('page-select');
-  pageSelect.addEventListener('change', () => {
-    const selectedPage = pageSelect.value;
-    if(selectedPage) {
-      window.location.href = selectedPage;
-    }
-  });
-</script>
-    /* Profile */
-    img.profile { width: 150px; border-radius: 50%; border: 3px solid #ffcc00; margin-bottom: 20px; }
-    h1 { color: #ffcc00; margin-bottom: 10px; text-align: center; }
-    h2 { color: #ffcc00; margin: 25px 0 15px; }
-    .bio p { margin: 8px 0; text-align: center; }
-
-    /* Skills badges */
-    .skills { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; justify-content: center; }
-    .skills span {
-      background: linear-gradient(135deg, #FFD700, #FFC107);
-      color: #1e1e2f;
-      padding: 8px 16px;
-      border-radius: 25px;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      cursor: default;
-    }
-    .skills span:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-      background: linear-gradient(135deg, #FFC107, #FFD700);
-    }
-
-    /* Project cards */
-    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 40px; }
-    .project-card { background-color: rgba(58,58,80,0.95); padding: 20px; border-radius: 10px; border: 1px solid #555; transition: transform 0.3s, box-shadow 0.3s; }
-    .project-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
-    .project-card a { display: inline-block; margin-top: 10px; }
-
-    /* Resume */
-    .resume a { font-weight: bold; display: block; margin: 10px 0; text-align: center; }
-
-    /* QR code */
-    .qr-code { margin-top: 20px; text-align: center; }
-    .qr-code p { margin-bottom: 10px; color: #ffcc00; font-weight: bold; }
-    .qr-code img { border: 2px solid #ffcc00; border-radius: 10px; }
-
-    /* Footer social icons */
-    footer { background-color: rgba(44,44,62,0.95); padding: 15px 0; text-align: center; border-top: 1px solid #555; }
-    footer a { color: #ffcc00; font-size: 2em; margin: 0 15px; transition: transform 0.3s; }
-    footer a:hover { transform: scale(1.2); }
-
-    /* Contact form */
-    form input, form textarea { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: none; }
-    form button { padding:10px 20px; background:#ffcc00; color:#1e1e2f; font-weight:bold; border:none; border-radius:5px; cursor:pointer; }
-
-    /* Responsive adjustments */
-    @media (max-width: 900px) {
-      .container { flex-direction: column; }
-      .sidebar { border-right: none; border-bottom: 1px solid #555; }
-      .main { border-left: none; padding: 20px; }
-    }
-    @media (max-width: 500px) {
-      h1 { font-size: 1.8em; }
-      h2 { font-size: 1.2em; }
-      .skills span { font-size: 0.9em; padding: 5px 10px; }
-      .project-card { padding: 15px; }
-      footer a { font-size: 1.5em; margin: 0 10px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <img class="profile" src="profile.png" alt="Fredrick Onyango">
-      <h1>Fredrick Onyango</h1>
-      <div class="bio">
-        <p> Hi, I’m @Freddeonyango</p>
-        <p>Data Analytics & Machine Learning</p>
-        <p>Master’s in Health Informatics</p>
-        <p>Collaborating on data projects</p>
-        <p>Pronouns: he/him</p>
-        <p>Fun fact: I love computers</p>
-      </div>
-      <a href="Fredrick_Onyango_USCV 20251.pdf" target="_blank">📄 Resume</a>
-      <div class="qr-code">
-        <p>Scan to visit my portfolio:</p>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://freddeonyango.github.io/fredrickonyango.github.io/" alt="QR Code to portfolio">
-      </div>
+<div class="container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <img class="profile" src="profile.png" alt="Fredrick Onyango">
+    <h1>Fredrick Onyango</h1>
+    <div class="bio">
+      <p>Hi, I’m @Freddeonyango</p>
+      <p>Data Analytics & Machine Learning</p>
+      <p>Master’s in Health Informatics</p>
+      <p>Collaborating on data projects</p>
+      <p>Pronouns: he/him</p>
+      <p>Fun fact: I love computers</p>
     </div>
+    <a href="Fredrick_Onyango_USCV 20251.pdf" target="_blank">📄 Resume</a>
+    <div class="qr-code">
+      <p>Scan to visit my portfolio:</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://freddeonyango.github.io/fredrickonyango.github.io/" alt="QR Code to portfolio">
+    </div>
+  </div>
 
-    <!-- Main content -->
-    <div class="main">
-      <!-- Home -->
-      <section id="home">
-        <h2>Welcome to My Startup</h2>
-        <p>We innovate at the intersection of data science, health informatics, and technology to deliver actionable insights and solutions. Our mission is to leverage analytics to improve decision-making in healthcare and beyond.</p>
-      </section>
+  <!-- Main content -->
+  <div class="main">
+    <section id="home">
+      <h2>Welcome to My Startup</h2>
+      <p>We innovate at the intersection of data science, health informatics, and technology to deliver actionable insights and solutions. Our mission is to leverage analytics to improve decision-making in healthcare and beyond.</p>
+    </section>
 
-      <!-- About Us -->
-      <section id="about">
-        <h2>About Us</h2>
-        <p>Founded by Fredrick Onyango, our team brings expertise in machine learning, health informatics, and software development. We collaborate on projects that solve real-world problems in healthcare, social tech, and data analytics.</p>
-      </section>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>Founded by Fredrick Onyango, our team brings expertise in machine learning, health informatics, and software development. We collaborate on projects that solve real-world problems in healthcare, social tech, and data analytics.</p>
+    </section>
 
-      <!-- Services -->
-      <section id="services">
-        <h2>Services & Products</h2>
-        <ul>
-          <li><strong>Data Analytics & Machine Learning:</strong> Predictive modeling, clustering, and classification solutions.</li>
-          <li><strong>Healthcare IT Solutions:</strong> EHR implementation, clinical dashboards, and decision-support systems.</li>
-          <li><strong>App Development:</strong> Mobile and web apps combining social media and productivity features.</li>
-        </ul>
-      </section>
+    <section id="services">
+      <h2>Services & Products</h2>
+      <ul>
+        <li><strong>Data Analytics & Machine Learning:</strong> Predictive modeling, clustering, and classification solutions.</li>
+        <li><strong>Healthcare IT Solutions:</strong> EHR implementation, clinical dashboards, and decision-support systems.</li>
+        <li><strong>App Development:</strong> Mobile and web apps combining social media and productivity features.</li>
+      </ul>
+    </section>
 
-      <!-- Skills -->
-      <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills">
-          <span>Python</span><span>R</span><span>SQL</span><span>Power BI</span><span>Tableau</span>
-          <span>Logistic Regression</span><span>SVM</span><span>Clustering</span><span>Naïve Bayes</span>
-          <span>React Native</span><span>Health Informatics</span><span>Project Management</span>
-        </div>
-      </section>
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+        <span>Python</span><span>R</span><span>SQL</span><span>Power BI</span><span>Tableau</span>
+        <span>Logistic Regression</span><span>SVM</span><span>Clustering</span><span>Naïve Bayes</span>
+        <span>React Native</span><span>Health Informatics</span><span>Project Management</span>
+      </div>
+    </section>
 
-      <!-- Portfolio -->
-       <!--  <section id="portfolio">
-        <h2>Portfolio / Case Studies</h2>
-        <div class="projects">
-          <div class="project-card">
-            <strong>🧬 GI Cancer Risk Prediction Model</strong><br>
-            Early detection of gastrointestinal cancers using biomarker data.<br>
-            <a href="https://github.com/fredrickonyango/gi-cancer-ml" target="_blank">View Project</a>
-          </div>
-          <div class="project-card">
-            <strong>📱 SnapStream App</strong><br>
-            Social media app blending TikTok, Snapchat, and YouTube features.<br>
-            <a href="https://github.com/fredrickonyango/snapstream-app" target="_blank">View Project</a>
-          </div>
-          <div class="project-card">
-            <strong>🏥 EHR Implementation Project</strong><br>
-            Hospital IT implementation plan with Wrike and Gantt charts.<br>
-            <a href="https://github.com/fredrickonyango/ehr-project" target="_blank">View Project</a>
-          </div>
-          <div class="project-card">
-            <strong>🚑 Disaster Resource Allocation Dashboard</strong><br>
-            Real-time decision support dashboard for emergency teams.<br>
-            <a href="https://github.com/fredrickonyango/disaster-dashboard" target="_blank">View Project</a>
-          </div>
-        </div>
-      </section>
+    <section id="blog">
+      <h2>Blog</h2>
+      <p>Explore our latest insights on data science, health informatics, and technology innovation. 
+        <a href="blog.html">Read our blog & insights →</a>
+      </p>
+    </section>
 
-      <!-- Blog -->
-      <section id="Projects">
-        <h2>About</h2>
-        <p>Explore our latest insights on data science, health informatics, and technology innovation. <a href="about.html">About Us →</a>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Have a project in mind or want to collaborate? Reach out via email or social media, or use the form below.</p>
+      <form action="https://formspree.io/f/mjkpgena" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+</div>
 
-      </section>
-      <!-- Blog -->
-<section id="blog">
-  <h2>Blog</h2>
-  <p>Explore our latest insights on data science, health informatics, and technology innovation. 
-     <a href="blog.html">Read our blog & insights →</a>
-  </p>
-</section>
+<!-- Footer -->
+<footer>
+  <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <a href="https://www.facebook.com/frederick.onyango.31" target="_blank"><i class="fab fa-facebook"></i></a>
+  <a href="https://x.com/@sonofmaryatieno" target="_blank"><i class="fab fa-x"></i></a>
+  <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
+  <a href="https://www.youtube.com/@Mrdotexcel" target="_blank"><i class="fab fa-youtube"></i></a>
+</footer>
 
-      <!-- Contact -->
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>Have a project in mind or want to collaborate? Reach out via email or social media, or use the form below.</p>
-        <form action="https://formspree.io/f/mjkpgena" method="POST">
-  <input type="text" name="name" placeholder="Your Name" required>
-  <input type="email" name="email" placeholder="Your Email" required>
-  <textarea name="message" placeholder="Your Message" required></textarea>
-  <button type="submit">Send</button>
-</form>
-
-      </section>
-
-    </div> <!-- End of main -->
-  </div> <!-- End of container -->
-
-
-
-
-
-  
-
-  <!-- Footer -->
-  <footer>
-    <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
-    <a href="https://www.facebook.com/frederick.onyango.31" target="_blank"><i class="fab fa-facebook"></i></a>
-    <a href="https://x.com/@sonofmaryatieno" target="_blank"><i class="fab fa-x"></i></a>
-    <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
-    <a href="https://www.youtube.com/@Mrdotexcel" target="_blank"><i class="fab fa-youtube"></i></a>
-  </footer>
-</body>
-</html>
+<script>
+const pageSelect = document.getElementById('page-select');
+pageSelect.addEventListener('change', () => {
+  co
