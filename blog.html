@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog & Insights | Fredrick Onyango</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<style>
+body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg,#0d0d0d,#1a1a2e); color:#f0f0f5; margin:0; padding:0 20px;}
+header { padding: 40px 0 10px; text-align:center; }
+h1 { color:#ffcc00; margin:0;}
+a { color:#ffcc00; text-decoration:none; font-weight:bold;}
+a:hover {text-decoration:underline;}
+.blog-container { max-width:900px; margin:30px auto 60px; display:flex; flex-direction:column; gap:25px;}
+.blog-post { background:rgba(58,58,80,0.95); padding:20px; border-radius:15px; border:1px solid #555; transition: all 0.3s ease; box-shadow:0 3px 6px rgba(0,0,0,0.2);}
+.blog-post:hover { transform:translateY(-5px) scale(1.02); box-shadow:0 8px 18px rgba(0,0,0,0.4); border-color:#ffcc00; }
+.blog-post h3 { margin-top:0; color:#ffcc00;}
+.blog-post .date { font-size:0.9em; color:#ccc; margin-bottom:10px; }
+.blog-post p { line-height:1.6; }
+
+/* Comments */
+.comments { margin-top:20px; padding-top:10px; border-top:1px solid #555; }
+.comment { background:rgba(0,0,0,0.2); padding:10px; margin-bottom:10px; border-radius:10px; }
+.comment strong { color:#ffcc00; }
+.comment button { background:none; border:none; color:#ffcc00; cursor:pointer; font-size:0.9em; margin-left:5px; }
+.comment-replies { margin-left:20px; margin-top:10px; }
+
+form { display:flex; flex-direction:column; gap:10px; margin-top:15px; }
+input, textarea, button { padding:10px; border-radius:8px; border:none; font-size:1em; }
+textarea { resize:none; min-height:60px; }
+button { background:#ffcc00; color:#1e1e2f; font-weight:bold; cursor:pointer; transition:0.3s;}
+button:hover { background:#ffc107; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Blog & Insights</h1>
+  <p><a href="index.html">⬅ Back to Home</a></p>
+</header>
+
+<div class="blog-container">
+
+  <div class="blog-post" data-id="ai-healthcare-ethics">
+    <h3>AI in Healthcare Ethics</h3>
+    <div class="date">October 28, 2025</div>
+    <p>Exploring the ethical considerations of AI in clinical decision-making, privacy concerns, and patient safety.</p>
+    
+    <div class="comments">
+      <h4>Comments</h4>
+      <div class="comment-list"></div>
+      <form class="comment-form">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <textarea name="message" placeholder="Your Comment" required></textarea>
+        <button type="submit">Post Comment</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "SENDER_ID",
+  appId: "APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Render comments recursively
+function renderComment(doc, container) {
+  const data = doc.data();
+  const div = document.createElement('div');
+  div.classList.add('comment');
+  div.dataset.id = doc.id;
+  div.innerHTML = `
+    <strong>${data.name}:</strong> ${data.message}
+    <button class="like-btn">👍 <span>${data.likes || 0}</span></button>
+    <button class="reply-btn">Reply</button>
+    <div class="comment-replies"></div>
+  `;
+  container.appendChild(div);
+
+  const repliesContainer = div.querySelector('.comment-replies');
+
+  // Load replies
+  db.collection('comments')
+    .where('parentId', '==', doc.id)
+    .orderBy('timestamp')
+    .onSnapshot(snapshot => {
+      repliesContainer.innerHTML = '';
+      snapshot.forEach(replyDoc => renderComment(replyDoc, repliesContainer));
+    });
+
+  // Like button
+  div.querySelector('.like-btn').addEventListener('click', () => {
+    db.collection('comments').doc(doc.id).update({
+      likes: firebase.firestore.FieldValue.increment(1)
+    });
+  });
+
+  // Reply button
+  div.querySelector('.reply-btn').addEventListener('click', () => {
+    if(div.querySelector('.reply-form')) return;
+    const form = document.createElement('form');
+    form.classList.add('reply-form');
+    form.innerHTML = `
+      <input type="text" name="name" placeholder="Your Name" required>
+      <textarea name="message" placeholder="Your Reply" required></textarea>
+      <button type="submit">Post Reply</button>
+    `;
+    div.appendChild(form);
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = form.name.value;
+      const message = form.message.value;
+      db.collection('comments').add({
+        postId: doc.data().postId || 'ai-healthcare-ethics',
+        parentId: doc.id,
+        name,
+        message,
+        likes: 0,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      form.remove();
+    });
+  });
+}
+
+// Load main comments
+document.querySelectorAll('.blog-post').forEach(post => {
+  const postId = post.dataset.id;
+  const commentList = post.querySelector('.comment-list');
+  const form = post.querySelector('.comment-form');
+
+  db.collection('comments')
+    .where('postId', '==', postId)
+    .where('parentId', '==', null)
+    .orderBy('timestamp')
+    .onSnapshot(snapshot => {
+      commentList.innerHTML = '';
+      snapshot.forEach(doc => renderComment(doc, commentList));
+    });
+
+  // Submit new comment
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = form.name.value;
+    const message = form.message.value;
+    db.collection('comments').add({
+      postId: postId,
+      parentId: null,
+      name,
+      message,
+      likes: 0,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    form.reset();
+  });
+});
+</script>
+
+</body>
+</html>
