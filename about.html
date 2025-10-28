@@ -19,13 +19,28 @@
   <h1>About Us</h1>
   <p>Founded by Fredrick Onyango, our team brings expertise in machine learning, health informatics, and software development. We collaborate on projects that solve real-world problems in healthcare, social tech, and data analytics.</p>
 
-  <h2>Search for a Disease</h2>
-  <input type="text" id="disease-input" placeholder="Enter disease name">
-  <button id="search-btn">Search</button>
+  <input type="text" id="searchBox" placeholder="Search projects or skills...">
+<div id="results"></div>
 
-  <div id="search-results"></div>
+<script>
+const data = [
+  { name: "GI Cancer Risk Prediction Model", link: "#", tags: "machine learning cancer biomarker" },
+  { name: "SnapStream App", link: "#", tags: "react native social media" },
+  { name: "EHR Implementation", link: "#", tags: "project management healthcare" },
+  { name: "Disaster Dashboard", link: "#", tags: "power bi dhis2 emergency" }
+];
 
-  <p><a href="index.html">← Back to Home</a></p>
+document.getElementById("searchBox").addEventListener("input", function() {
+  const query = this.value.toLowerCase();
+  const results = data.filter(item =>
+    item.name.toLowerCase().includes(query) ||
+    item.tags.toLowerCase().includes(query)
+  );
 
+  document.getElementById("results").innerHTML = results.length
+    ? results.map(r => `<p><a href="${r.link}">${r.name}</a></p>`).join("")
+    : "<p>No matches found.</p>";
+});
+</script>
 </body>
 </html>
