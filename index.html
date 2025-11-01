@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fredrick Onyango | Portfolio</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     /* Global */
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -122,11 +122,11 @@
     transition: max-height 0.3s ease-out;
   ">
     <a href="index.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Home</a>
-    <a href="about.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">About Us</a>
+    <!-- Changed About Us to About Me -->
+    <a href="about.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">About Me</a>
     <a href="portfolio.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Portfolio</a>
     <a href="blog.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Blog & Insights</a>
-   <a href="#contact" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Contact</a>
-
+    <a href="#contact" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Contact</a>
   </div>
 </div>
 
@@ -153,10 +153,10 @@ document.addEventListener('click', function(event) {
 <div class="container">
   <!-- Sidebar -->
   <div class="sidebar">
-    <img class="profile" src="profile.png" alt="Fredrick Onyango">
+    <img class="profile" src="profile.png" alt="Fredrick Onyango" />
     <h1>Fredrick Onyango</h1>
     <div class="bio">
-      <p> Hi, I’m @Freddeonyango</p>
+      <p>Hi, I’m @Freddeonyango</p>
       <p>Data Analytics & Machine Learning</p>
       <p>Master’s in Health Informatics</p>
       <p>Collaborating on data projects</p>
@@ -166,7 +166,7 @@ document.addEventListener('click', function(event) {
     <a href="Fredrick_Onyango_USCV 20251.pdf" target="_blank">📄 Resume</a>
     <div class="qr-code">
       <p>Scan to visit my portfolio:</p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://freddeonyango.github.io/fredrickonyango.github.io/" alt="QR Code to portfolio">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://freddeonyango.github.io/fredrickonyango.github.io/" alt="QR Code to portfolio" />
     </div>
   </div>
 
@@ -174,23 +174,41 @@ document.addEventListener('click', function(event) {
   <div class="main">
     <!-- Home -->
     <section id="home">
-      <h2>Welcome to My Startup</h2>
-      <p>We innovate at the intersection of data science, health informatics, and technology to deliver actionable insights and solutions. Our mission is to leverage analytics to improve decision-making in healthcare and beyond.</p>
+      <h2>Welcome to My Portfolio</h2>
+      <p>
+        I’m Fredrick Onyango, a passionate Health Informatics master’s student at Indiana University Luddy School of Informatics.
+        I specialize in leveraging data analytics, machine learning, and health information systems to improve healthcare outcomes.
+      </p>
+      <p>
+        Explore my projects, research, and insights here as I work to turn complex healthcare challenges into actionable data-driven solutions.
+      </p>
     </section>
 
-    <!-- About Us -->
+    <!-- About Me -->
     <section id="about">
-      <h2>About Us</h2>
-      <p>Founded by Fredrick Onyango, our team brings expertise in machine learning, health informatics, and software development. We collaborate on projects that solve real-world problems in healthcare, social tech, and data analytics.</p>
+      <h2>About Me</h2>
+      <p>
+        I am Fredrick Onyango, a Master’s student specializing in Health Informatics.
+        With expertise in Python, machine learning, data visualization (Tableau, Matplotlib), and electronic health record systems,
+        I focus on projects such as early cancer detection using predictive modeling and healthcare resource optimization.
+      </p>
+      <p>
+        I am passionate about transforming healthcare through technology and data, and eager to collaborate on innovative health informatics projects.
+        Feel free to explore my work and connect with me to discuss opportunities in healthcare technology and data science.
+      </p>
+      <p>
+        Check out my GitHub:
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">https://github.com/yourusername</a>
+      </p>
     </section>
 
-    <!-- Services -->
+    <!-- Expertise & Focus Areas -->
     <section id="services">
-      <h2>Services & Products</h2>
+      <h2>Expertise & Focus Areas</h2>
       <ul>
         <li><strong>Data Analytics & Machine Learning:</strong> Predictive modeling, clustering, and classification solutions.</li>
         <li><strong>Healthcare IT Solutions:</strong> EHR implementation, clinical dashboards, and decision-support systems.</li>
-        <li><strong>App Development:</strong> Mobile and web apps combining social media and productivity features.</li>
+        <li><strong>App Development:</strong> Mobile and web applications blending social media and productivity.</li>
       </ul>
     </section>
 
@@ -207,8 +225,8 @@ document.addEventListener('click', function(event) {
     <!-- Blog -->
     <section id="blog">
       <h2>Blog</h2>
-      <p>Explore our latest insights on data science, health informatics, and technology innovation. 
-         <a href="blog.html">Read our blog & insights →</a>
+      <p>Explore my latest insights on data science, health informatics, and technology innovation.
+         <a href="blog.html">Read my blog & insights →</a>
       </p>
     </section>
 
@@ -217,8 +235,8 @@ document.addEventListener('click', function(event) {
       <h2>Contact</h2>
       <p>Have a project in mind or want to collaborate? Reach out via email or social media, or use the form below.</p>
       <form action="https://formspree.io/f/mjkpgena" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
         <textarea name="message" placeholder="Your Message" required></textarea>
         <button type="submit">Send</button>
       </form>
