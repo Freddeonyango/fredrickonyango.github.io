@@ -304,15 +304,15 @@
     }
 
     /* ── TAGS ── */
-    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 24px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
 
     .tag {
       font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
+      font-size: 0.55rem;
+      letter-spacing: 0.06em;
       color: #001a05;
       background: var(--accent2);
-      padding: 4px 10px;
+      padding: 3px 7px;
       border-radius: 3px;
       font-weight: 700;
     }
@@ -350,18 +350,18 @@
     /* ── PROJECT GRID ── */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px;
     }
 
     .project-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 26px 28px;
+      border-radius: 8px;
+      padding: 16px 18px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
       opacity: 0;
       animation: fadeUp 0.5s ease forwards;
       transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
@@ -405,15 +405,15 @@
     }
 
     .card-footer {
-      margin-top: 4px;
+      margin-top: 2px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
     }
 
     .card-link {
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       color: var(--accent);
       text-decoration: none;
       display: inline-flex;
