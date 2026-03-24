@@ -3,271 +3,688 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fredrick Onyango | Projects</title>
-
-  <!-- ✅ Font Awesome Icons -->
+  <title>Fredrick Onyango | About</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #020b02;
+      --bg2:       #061006;
+      --surface:   rgba(5,25,5,0.85);
+      --surface2:  rgba(0,40,8,0.7);
+      --accent:    #00e676;
+      --accent2:   #69f0ae;
+      --accent3:   #1de9b6;
+      --glow:      rgba(0,230,118,0.18);
+      --glowsm:    rgba(0,230,118,0.08);
+      --text:      #c8f5cc;
+      --text2:     #7ab87e;
+      --text3:     #3a6340;
+      --border:    rgba(0,230,118,0.14);
+      --borderhov: rgba(0,230,118,0.4);
+      --sans:      'Space Grotesk', sans-serif;
+      --mono:      'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    header {
-      padding: 40px 0 10px;
+    #atomCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
     }
 
-    h1 {
-      font-size: 2.5em;
-      margin: 0;
+    nav, main, footer { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: linear-gradient(to bottom, rgba(2,11,2,0.97) 60%, transparent);
+      border-bottom: 1px solid var(--border);
     }
 
-    h2 {
-      font-size: 2em;
-      margin-top: 40px;
-      color: #ffcc00;
-    }
-
-    /* 🔍 Search Box */
-    #searchBox {
-      width: 60%;
-      padding: 12px;
-      margin: 20px auto;
-      border-radius: 25px;
-      border: none;
-      text-align: center;
-      font-size: 1.1em;
-      display: block;
-      outline: none;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-      transition: box-shadow 0.3s ease;
-    }
-
-    #searchBox:focus {
-      box-shadow: 0 0 15px #ffcc00;
-    }
-
-    /* 🧱 Project Grid */
-    .projects-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      width: 90%;
-      margin: 0 auto 60px;
-    }
-
-    .project-card {
-      background-color: rgba(58,58,80,0.95);
-      padding: 20px;
-      border-radius: 15px;
-      border: 1px solid #555;
-      transition: all 0.3s ease;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-
-      opacity: 0;
-      animation: fadeIn 0.6s ease forwards;
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
-      border-color: #ffcc00;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    a {
-      color: #ffcc00;
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 9px;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .nav-logo::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+      animation: blink 2.4s ease-in-out infinite;
     }
 
-    /* 🏷 Tags */
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text2);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+
+    .ham-wrap { display: none; position: relative; }
+    .ham-wrap input { display: none; }
+    .ham-label { font-size: 1.6rem; color: var(--accent); cursor: pointer; line-height: 1; }
+
+    #mob-menu {
+      position: absolute;
+      top: 36px; right: 0;
+      background: rgba(2,14,2,0.97);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      min-width: 160px;
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+
+    #mob-toggle:checked ~ #mob-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #mob-menu a { display: block; padding: 10px 18px; color: var(--accent2); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-decoration: none; }
+    #mob-menu a:hover { background: var(--glowsm); }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 120px 40px 80px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header { margin-bottom: 56px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::after {
+      content: '';
+      width: 50px; height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    .page-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .page-title span { color: var(--accent); }
+
+    .page-subtitle {
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text2);
+      letter-spacing: 0.06em;
+      line-height: 1.9;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text3);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .section-label::before { content: '//'; color: var(--accent); opacity: 0.7; }
+
+    /* ── BIO CARD ── */
+    .bio-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--borderhov);
+      border-radius: 10px;
+      padding: 40px 44px;
+      margin-bottom: 48px;
+      overflow: hidden;
+    }
+
+    .bio-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent3));
+      border-radius: 10px 0 0 10px;
+    }
+
+    .bio-text {
+      font-size: 0.88rem;
+      color: var(--text2);
+      line-height: 1.9;
+      max-width: 680px;
+    }
+
+    .bio-text p + p { margin-top: 14px; }
+
+    .bio-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 22px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .info-card:nth-child(2) { animation-delay: 0.08s; }
+    .info-card:nth-child(3) { animation-delay: 0.16s; }
+    .info-card:nth-child(4) { animation-delay: 0.24s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .info-card:hover {
+      border-color: var(--borderhov);
+      transform: translateY(-3px);
+    }
+
+    .info-card-icon {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .info-card-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--text3);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .info-card-value {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .skill-card:nth-child(2) { animation-delay: 0.06s; }
+    .skill-card:nth-child(3) { animation-delay: 0.12s; }
+    .skill-card:nth-child(4) { animation-delay: 0.18s; }
+    .skill-card:nth-child(5) { animation-delay: 0.24s; }
+    .skill-card:nth-child(6) { animation-delay: 0.30s; }
+
+    .skill-card:hover {
+      border-color: var(--borderhov);
+      transform: translateY(-3px);
+    }
+
+    .skill-category {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--accent);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .skill-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .skill-items {
+      font-size: 0.74rem;
+      color: var(--text2);
+      line-height: 1.75;
+    }
+
+    /* ── TAGS ── */
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+
     .tag {
-      background: #ffcc00;
-      color: #000;
-      padding: 4px 8px;
-      border-radius: 5px;
-      font-size: 0.75em;
-      margin: 2px;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.06em;
+      color: #001a05;
+      background: var(--accent2);
+      padding: 3px 7px;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+
+    .tag.outline {
+      color: var(--accent2);
+      background: transparent;
+      border: 1px solid rgba(105,240,174,0.3);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text3);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links { display: flex; gap: 18px; }
+
+    .footer-links a {
+      color: var(--text2);
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
       display: inline-block;
     }
 
-    /* ⭐ Featured Project */
-    .featured {
-      border: 2px solid #ffcc00;
-      padding: 25px;
-      margin: 30px auto;
-      width: 80%;
-      border-radius: 15px;
-      background: rgba(58,58,80,0.95);
-    }
+    .footer-links a:hover { color: var(--accent); transform: translateY(-2px); }
 
-    /* 🍔 Menu */
-    #menu {
-      position: absolute;
-      top: 40px;
-      right: 0;
-      background: rgba(44,44,62,0.95);
-      border: 1px solid #555;
-      border-radius: 10px;
-      text-align: left;
-      min-width: 180px;
-      opacity: 0;
-      transform: translateY(-10px);
-      pointer-events: none;
-      transition: all 0.3s ease;
-    }
-
-    #menu.active {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    /* Back Button */
-    .back-home {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: #ffcc00;
-      color: #1e1e2f;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      z-index: 1000;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .ham-wrap { display: block; }
+      main { padding: 100px 20px 60px; }
+      .bio-card { padding: 24px 20px; }
+      footer { flex-direction: column; gap: 16px; padding: 24px 20px; }
     }
   </style>
 </head>
-
 <body>
 
-<!-- 🍔 Menu -->
-<div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-  <input type="checkbox" id="menu-toggle" style="display:none;">
-  <label for="menu-toggle" style="font-size: 2em; color: #ffcc00; cursor: pointer;">☰</label>
+  <canvas id="atomCanvas"></canvas>
 
-  <div id="menu">
-    <a href="index.html">Home</a><br>
-    <a href="about.html">About</a><br>
-    <a href="portfolio.html">Portfolio</a><br>
-    <a href="blog.html">Blog</a><br>
-    <a href="contact.html">Contact</a>
-  </div>
-</div>
-
-<script>
-  const toggle = document.getElementById("menu-toggle");
-  const menu = document.getElementById("menu");
-
-  toggle.addEventListener("change", () => {
-    menu.classList.toggle("active");
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!menu.contains(e.target) && !e.target.matches('label')) {
-      menu.classList.remove("active");
-      toggle.checked = false;
-    }
-  });
-</script>
-
-<!-- Back -->
-<a href="index.html" class="back-home">⬅ Back</a>
-
-<header>
-  <h1>Fredrick Onyango</h1>
-  <p>Health Informatics | Machine Learning | Data Science</p>
-</header>
-
-<!-- ⭐ Featured -->
-<div class="featured">
-  <h2>⭐ Featured Project</h2>
-  <h3>GI Cancer Detection (Machine Learning)</h3>
-  <p>
-    Built and evaluated multiple machine learning models (Logistic Regression, SVM, Naive Bayes) 
-    to predict gastrointestinal cancer risk using biomarker datasets, supporting early detection.
-  </p>
-  <div>
-    <span class="tag">Python</span>
-    <span class="tag">Machine Learning</span>
-    <span class="tag">Healthcare</span>
-  </div>
-  <br>
-  <a href="https://freddeonyango.github.io/INFO-INTRO%20FINAL%20Presentation%20%5BAutosaved%5D.pdf" target="_blank">View Project</a>
-</div>
-
-<h2>Projects</h2>
-
-<input type="text" id="searchBox" placeholder="Search projects...">
-
-<div class="projects-container">
-
-  <div class="project-card">
-    <h3>Disaster Resource Allocation Dashboard</h3>
-    <p>Interactive dashboard integrating DHIS2 and Excel for emergency response decision-making.</p>
-    <div>
-      <span class="tag">Power BI</span>
-      <span class="tag">DHIS2</span>
-      <span class="tag">Data Analytics</span>
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">FO.DEV</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="ham-wrap">
+      <input type="checkbox" id="mob-toggle">
+      <label for="mob-toggle" class="ham-label">☰</label>
+      <div id="mob-menu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
-  </div>
+  </nav>
 
-  <div class="project-card">
-    <h3>Google Search Trends Analysis</h3>
-    <p>Analyzed political search trends in Kenya using SerpAPI and visualized results with Python.</p>
-    <div>
-      <span class="tag">Python</span>
-      <span class="tag">API</span>
-      <span class="tag">Visualization</span>
+  <main>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="eyebrow">About Me</div>
+      <h1 class="page-title">
+        Fredrick<br>
+        <span>Onyango</span>
+      </h1>
+      <p class="page-subtitle">Health Informatics &nbsp;·&nbsp; Machine Learning &nbsp;·&nbsp; Data Science</p>
     </div>
-    <a href="search.py" download>Download Code</a>
-  </div>
 
-  <div class="project-card">
-    <h3>Polis Center Research</h3>
-    <p>Analyzing social determinants of health using spatial data science and urban analytics.</p>
-    <div>
-      <span class="tag">GIS</span>
-      <span class="tag">Public Health</span>
-      <span class="tag">Research</span>
+    <!-- BIO -->
+    <div class="section-label">Biography</div>
+    <div class="bio-card">
+      <div class="bio-text">
+        <p>
+          I'm <strong>Fredrick Onyango</strong>, a Health Informatics researcher and data scientist passionate about using technology to solve real-world health challenges. My work sits at the intersection of clinical data, machine learning, and public health analytics.
+        </p>
+        <p>
+          Currently focused on building predictive models for disease detection, designing data-driven dashboards for emergency response, and analyzing social determinants of health through spatial data science. I believe data, when used thoughtfully, has the power to save lives.
+        </p>
+        <p>
+          Based in Indianapolis, Indiana — working with institutions like the <strong>Polis Center</strong> on urban health analytics and equity-driven research.
+        </p>
+      </div>
     </div>
-  </div>
 
-</div>
+    <!-- QUICK INFO -->
+    <div class="section-label">Quick Info</div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="info-card-label">Location</div>
+        <div class="info-card-value">Indianapolis, Indiana</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="info-card-label">Field</div>
+        <div class="info-card-value">Health Informatics</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon"><i class="fas fa-flask"></i></div>
+        <div class="info-card-label">Focus</div>
+        <div class="info-card-value">ML · GIS · Public Health</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-icon"><i class="fas fa-envelope"></i></div>
+        <div class="info-card-label">Email</div>
+        <div class="info-card-value">
+          <a href="mailto:freddeonyango@gmail.com" style="color:var(--accent);text-decoration:none;font-size:0.78rem;">freddeonyango@gmail.com</a>
+        </div>
+      </div>
+    </div>
 
-<!-- 🔍 Search Fix -->
-<script>
-  document.getElementById("searchBox").addEventListener("input", function() {
-    const query = this.value.toLowerCase();
-    const projects = document.querySelectorAll(".project-card");
+    <hr class="divider">
 
-    projects.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(query) ? "" : "none";
+    <!-- SKILLS -->
+    <div class="section-label">Skills & Tools</div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-category">Languages</div>
+        <div class="skill-title">Programming</div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag outline">R</span>
+          <span class="tag outline">SQL</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Machine Learning</div>
+        <div class="skill-title">ML & AI</div>
+        <div class="tags">
+          <span class="tag">Scikit-learn</span>
+          <span class="tag outline">Pandas</span>
+          <span class="tag outline">NumPy</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Visualization</div>
+        <div class="skill-title">Data Viz</div>
+        <div class="tags">
+          <span class="tag">Power BI</span>
+          <span class="tag outline">Matplotlib</span>
+          <span class="tag outline">Tableau</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Spatial</div>
+        <div class="skill-title">GIS & Mapping</div>
+        <div class="tags">
+          <span class="tag">ArcGIS</span>
+          <span class="tag outline">QGIS</span>
+          <span class="tag outline">GeoPandas</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Health Systems</div>
+        <div class="skill-title">Health IT</div>
+        <div class="tags">
+          <span class="tag">DHIS2</span>
+          <span class="tag outline">EHR</span>
+          <span class="tag outline">HL7/FHIR</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-category">Research</div>
+        <div class="skill-title">Methods</div>
+        <div class="tags">
+          <span class="tag">Biostatistics</span>
+          <span class="tag outline">Epidemiology</span>
+          <span class="tag outline">Mixed Methods</span>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="divider">
+
+    <!-- CONNECT -->
+    <div class="section-label">Connect</div>
+    <div class="bio-card" style="padding:28px 44px;">
+      <div class="bio-text">
+        <p>Interested in collaborating on health data research, ML for healthcare, or public health informatics? Feel free to reach out.</p>
+      </div>
+      <div class="tags" style="margin-top:20px;">
+        <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank" style="text-decoration:none;">
+          <span class="tag"><i class="fab fa-linkedin"></i> LinkedIn</span>
+        </a>
+        <a href="mailto:freddeonyango@gmail.com" style="text-decoration:none;">
+          <span class="tag outline"><i class="fas fa-envelope"></i> Email</span>
+        </a>
+        <a href="https://x.com/@sonofmaryatieno" target="_blank" style="text-decoration:none;">
+          <span class="tag outline"><i class="fab fa-x-twitter"></i> X</span>
+        </a>
+        <a href="https://www.youtube.com/@Mrdotexcel" target="_blank" style="text-decoration:none;">
+          <span class="tag outline"><i class="fab fa-youtube"></i> YouTube</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2025 Fredrick Onyango</span>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.facebook.com/frederick.onyango.31" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://x.com/@sonofmaryatieno" target="_blank"><i class="fab fa-x-twitter"></i></a>
+      <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.youtube.com/@Mrdotexcel" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    /* mobile menu */
+    document.addEventListener('click', e => {
+      const wrap = document.querySelector('.ham-wrap');
+      const tog  = document.getElementById('mob-toggle');
+      if (wrap && !wrap.contains(e.target)) { tog.checked = false; }
     });
-  });
-</script>
 
-<!-- Footer -->
-<footer style="background: rgba(44,44,62,0.95); padding:15px;">
-  <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
-  <a href="https://www.facebook.com/frederick.onyango.31" target="_blank"><i class="fab fa-facebook"></i></a>
-  <a href="https://x.com/@sonofmaryatieno" target="_blank"><i class="fab fa-x"></i></a>
-  <a href="mailto:freddeonyango@gmail.com"><i class="fas fa-envelope"></i></a>
-  <a href="https://www.youtube.com/@Mrdotexcel" target="_blank"><i class="fab fa-youtube"></i></a>
-</footer>
+    /* animated atom + particle canvas */
+    const canvas = document.getElementById('atomCanvas');
+    const ctx    = canvas.getContext('2d');
+    let mouse    = { x: null, y: null };
+
+    function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+    class Particle {
+      constructor() { this.reset(true); }
+      reset(rand) {
+        this.x     = Math.random() * canvas.width;
+        this.y     = rand ? Math.random() * canvas.height : canvas.height + 4;
+        this.size  = Math.random() * 1.5 + 0.3;
+        this.speed = Math.random() * 0.28 + 0.08;
+        this.alpha = Math.random() * 0.4 + 0.1;
+      }
+      update() {
+        this.y -= this.speed;
+        if (this.y < -2) this.reset(false);
+        ctx.fillStyle = `rgba(0,230,118,${this.alpha})`;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+      }
+    }
+
+    const ATOM_COLORS = [
+      '#00e676','#40c4ff','#ea80fc','#ff6d00',
+      '#ff4081','#1de9b6','#ffeb3b','#7c4dff',
+    ];
+
+    class Atom {
+      constructor(colorIndex) {
+        this.x     = Math.random() * canvas.width;
+        this.y     = Math.random() * canvas.height;
+        this.r     = 28 + Math.random() * 38;
+        this.angle = Math.random() * Math.PI * 2;
+        this.speed = 0.008 + Math.random() * 0.012;
+        this.tilt  = Math.random() * Math.PI;
+        this.color = ATOM_COLORS[colorIndex % ATOM_COLORS.length];
+      }
+      draw() {
+        ctx.strokeStyle = this.color + '38';
+        ctx.lineWidth   = 0.8;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur  = 8;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(this.x, this.y, this.r, this.r * 0.4, this.tilt,               0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(this.x, this.y, this.r, this.r * 0.4, this.tilt + Math.PI / 2, 0, Math.PI * 2); ctx.stroke();
+        ctx.shadowBlur = 0;
+        const ex = this.x + Math.cos(this.angle) * this.r;
+        const ey = this.y + Math.sin(this.angle) * this.r;
+        ctx.beginPath(); ctx.arc(ex, ey, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = this.color; ctx.shadowColor = this.color; ctx.shadowBlur = 7;
+        ctx.fill(); ctx.shadowBlur = 0;
+      }
+      update() {
+        this.angle += this.speed;
+        if (mouse.x && mouse.y) {
+          this.x += (mouse.x - this.x) * 0.0006;
+          this.y += (mouse.y - this.y) * 0.0006;
+        }
+        this.draw();
+      }
+    }
+
+    function connectParticles(pts) {
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const dx = pts[i].x - pts[j].x;
+          const dy = pts[i].y - pts[j].y;
+          if (dx * dx + dy * dy < 10000) {
+            ctx.strokeStyle = 'rgba(0,230,118,0.05)';
+            ctx.lineWidth   = 0.4;
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    const atoms     = Array.from({ length: 8 },  (_, i) => new Atom(i));
+    const particles = Array.from({ length: 130 }, () => new Particle());
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => p.update());
+      connectParticles(particles);
+      atoms.forEach(a => a.update());
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
 
 </body>
 </html>
