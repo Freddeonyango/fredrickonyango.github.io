@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fredrick Onyango | Projects</title>
+
+  <!-- ✅ Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     body {
       background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
@@ -48,7 +52,7 @@
       box-shadow: 0 0 15px #ffcc00;
     }
 
-    /* 🧱 Project Cards */
+    /* 🧱 Project Grid */
     .projects-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -64,12 +68,19 @@
       border: 1px solid #555;
       transition: all 0.3s ease;
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
     }
 
     .project-card:hover {
       transform: translateY(-8px) scale(1.03);
       box-shadow: 0 8px 18px rgba(0,0,0,0.4);
       border-color: #ffcc00;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
     a {
@@ -81,7 +92,50 @@
       text-decoration: underline;
     }
 
-    /* Back to Home Button */
+    /* 🏷 Tags */
+    .tag {
+      background: #ffcc00;
+      color: #000;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 0.75em;
+      margin: 2px;
+      display: inline-block;
+    }
+
+    /* ⭐ Featured Project */
+    .featured {
+      border: 2px solid #ffcc00;
+      padding: 25px;
+      margin: 30px auto;
+      width: 80%;
+      border-radius: 15px;
+      background: rgba(58,58,80,0.95);
+    }
+
+    /* 🍔 Menu */
+    #menu {
+      position: absolute;
+      top: 40px;
+      right: 0;
+      background: rgba(44,44,62,0.95);
+      border: 1px solid #555;
+      border-radius: 10px;
+      text-align: left;
+      min-width: 180px;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    #menu.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* Back Button */
     .back-home {
       position: fixed;
       top: 20px;
@@ -93,37 +147,23 @@
       font-weight: bold;
       text-decoration: none;
       z-index: 1000;
-      transition: 0.3s;
-    }
-    .back-home:hover {
-      background: #ffc107;
     }
   </style>
 </head>
 
 <body>
 
-<!-- Top-right Hamburger Menu -->
+<!-- 🍔 Menu -->
 <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
   <input type="checkbox" id="menu-toggle" style="display:none;">
   <label for="menu-toggle" style="font-size: 2em; color: #ffcc00; cursor: pointer;">☰</label>
-  
-  <div id="menu" style="
-    display: none;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    background: rgba(44,44,62,0.95);
-    border: 1px solid #555;
-    border-radius: 10px;
-    text-align: left;
-    min-width: 180px;
-  ">
-    <a href="index.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Home</a>
-    <a href="about.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">About Us</a>
-    <a href="portfolio.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Portfolio</a>
-    <a href="blog.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Blog & Insights</a>
-    <a href="contact.html" style="display:block; padding:10px 20px; color:#ffcc00; text-decoration:none;">Contact</a>
+
+  <div id="menu">
+    <a href="index.html">Home</a><br>
+    <a href="about.html">About</a><br>
+    <a href="portfolio.html">Portfolio</a><br>
+    <a href="blog.html">Blog</a><br>
+    <a href="contact.html">Contact</a>
   </div>
 </div>
 
@@ -132,70 +172,82 @@
   const menu = document.getElementById("menu");
 
   toggle.addEventListener("change", () => {
-    menu.style.display = toggle.checked ? "block" : "none";
+    menu.classList.toggle("active");
   });
 
   document.addEventListener("click", (e) => {
-    if (!menu.contains(e.target) && !toggle.contains(e.target) && !e.target.matches('label[for="menu-toggle"]')) {
-      menu.style.display = "none";
+    if (!menu.contains(e.target) && !e.target.matches('label')) {
+      menu.classList.remove("active");
       toggle.checked = false;
     }
   });
 </script>
 
-<!-- Back to Home -->
-<a href="index.html" class="back-home">⬅ Back to Home</a>
+<!-- Back -->
+<a href="index.html" class="back-home">⬅ Back</a>
 
 <header>
   <h1>Fredrick Onyango</h1>
-  <p>Welcome to my portfolio</p>
+  <p>Health Informatics | Machine Learning | Data Science</p>
 </header>
+
+<!-- ⭐ Featured -->
+<div class="featured">
+  <h2>⭐ Featured Project</h2>
+  <h3>GI Cancer Detection (Machine Learning)</h3>
+  <p>
+    Built and evaluated multiple machine learning models (Logistic Regression, SVM, Naive Bayes) 
+    to predict gastrointestinal cancer risk using biomarker datasets, supporting early detection.
+  </p>
+  <div>
+    <span class="tag">Python</span>
+    <span class="tag">Machine Learning</span>
+    <span class="tag">Healthcare</span>
+  </div>
+  <br>
+  <a href="https://freddeonyango.github.io/INFO-INTRO%20FINAL%20Presentation%20%5BAutosaved%5D.pdf" target="_blank">View Project</a>
+</div>
 
 <h2>Projects</h2>
 
-<!-- 🔍 Search Bar -->
 <input type="text" id="searchBox" placeholder="Search projects...">
 
-
-  <!-- 💼 Projects Section -->
 <div class="projects-container">
-  <div class="project-card">
-  <h3>GI Cancer Detection (Machine Learning)</h3>
-    <p>Using Python and ML models to predict gastrointestinal cancer (GI) risk based on biomarker data.</p>
-      <a href="https://freddeonyango.github.io/INFO-INTRO%20FINAL%20Presentation%20%5BAutosaved%5D.pdf" target="_blank">
-      View Project
-    </a>
-  </div>
 
   <div class="project-card">
     <h3>Disaster Resource Allocation Dashboard</h3>
-    <p>Interactive Power BI dashboard integrating DHIS2 and Excel to support emergency response teams.</p>
-    <a href="#">View Project</a>
+    <p>Interactive dashboard integrating DHIS2 and Excel for emergency response decision-making.</p>
+    <div>
+      <span class="tag">Power BI</span>
+      <span class="tag">DHIS2</span>
+      <span class="tag">Data Analytics</span>
+    </div>
   </div>
 
- <div class="project-card">
-  <h3>Google Search Trends Analysis with SerpAPI</h3>
-  <p>
-    Developed a Python script to analyze the popularity of political keywords ("gachagua" and "ruto") in Kenya by fetching Google search counts using SerpAPI. The results are visualized with a pie chart for quick insights.
-  </p>
-  <p><strong>Technologies:</strong> Python, SerpAPI, Matplotlib</p>
-  <p><strong>Key Features:</strong></p>
-  <ul>
-    <li>Fetches Google search result counts programmatically</li>
-    <li>Filters results by Kenya region (gl=ke)</li>
-    <li>Visualizes data distribution with an intuitive pie chart</li>
-  </ul>
-  <a href="search.py" download>Download Python Script</a>
-</div>
+  <div class="project-card">
+    <h3>Google Search Trends Analysis</h3>
+    <p>Analyzed political search trends in Kenya using SerpAPI and visualized results with Python.</p>
+    <div>
+      <span class="tag">Python</span>
+      <span class="tag">API</span>
+      <span class="tag">Visualization</span>
+    </div>
+    <a href="search.py" download>Download Code</a>
+  </div>
 
   <div class="project-card">
     <h3>Polis Center Research</h3>
-    <p>Analyzing social determinants of health and urban resilience through spatial data science.</p>
-    <a href="#">View Project</a>
+    <p>Analyzing social determinants of health using spatial data science and urban analytics.</p>
+    <div>
+      <span class="tag">GIS</span>
+      <span class="tag">Public Health</span>
+      <span class="tag">Research</span>
+    </div>
   </div>
+
 </div>
 
-<!-- 🧠 Search Script -->
+<!-- 🔍 Search Fix -->
 <script>
   document.getElementById("searchBox").addEventListener("input", function() {
     const query = this.value.toLowerCase();
@@ -203,13 +255,13 @@
 
     projects.forEach(card => {
       const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(query) ? "block" : "none";
+      card.style.display = text.includes(query) ? "" : "none";
     });
   });
 </script>
 
 <!-- Footer -->
-<footer style="background: rgba(44,44,62,0.95); padding:15px 0; text-align:center; border-top:1px solid #555;">
+<footer style="background: rgba(44,44,62,0.95); padding:15px;">
   <a href="https://www.linkedin.com/in/fredrick-onyango-41b619352/" target="_blank"><i class="fab fa-linkedin"></i></a>
   <a href="https://www.facebook.com/frederick.onyango.31" target="_blank"><i class="fab fa-facebook"></i></a>
   <a href="https://x.com/@sonofmaryatieno" target="_blank"><i class="fab fa-x"></i></a>
